@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f pandora.yml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: signal
+  name: signal
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: signal
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f pandora.yml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/swarm-default: "true"
+        io.kompose.service: signal
+    spec:
+      containers:
+        - image: khalifarsm/pandora-signal-server
+          name: signal
+          ports:
+            - containerPort: 8080
+              hostPort: 8100
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
