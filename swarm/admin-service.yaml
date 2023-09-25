@@ -6,15 +6,15 @@ metadata:
     kompose.version: 1.30.0 (9d8dcb518)
   creationTimestamp: null
   labels:
-    io.kompose.service: wipe
-  name: wipe
+    io.kompose.service: admin
+  name: admin
   namespace: default
 spec:
   ports:
-    - name: "8103"
-      port: 8103
-      targetPort: 8103
+    - name: "8104"
+      port: 8104
+      targetPort: 8104
   selector:
-    io.kompose.service: wipe
+    io.kompose.service: admin
 status:
   loadBalancer: {}

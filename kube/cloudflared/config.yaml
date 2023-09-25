@@ -1,0 +1,14 @@
+# Name of the tunnel you want to run
+tunnel: pandorachat
+credentials-file: pandora-tunnel.json
+ingress:
+  # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
+  - hostname: admin.pandorachat.io
+    service: http://admin:8104
+  - hostname: api.pandorachat.io
+    service: http://pandora:8102
+  - hostname: wipe.pandorachat.io
+    service: http://wipe:8103
+  - hostname: signal.pandorachat.io
+    service: http://signal:8080
+  - service: http_status:404

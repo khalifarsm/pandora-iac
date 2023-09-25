@@ -6,15 +6,15 @@ metadata:
     kompose.version: 1.30.0 (9d8dcb518)
   creationTimestamp: null
   labels:
-    io.kompose.service: wipe
-  name: wipe
+    io.kompose.service: pandora
+  name: pandora
   namespace: default
 spec:
   ports:
-    - name: "8103"
-      port: 8103
-      targetPort: 8103
+    - name: "8102"
+      port: 8102
+      targetPort: 8102
   selector:
-    io.kompose.service: wipe
+    io.kompose.service: pandora
 status:
   loadBalancer: {}
