@@ -26,7 +26,10 @@ spec:
         io.kompose.service: admin
     spec:
       containers:
-        - image: khalifarsm/pandora:admin
+        - env:
+            - name: PANDORA_ENV
+              value: kube
+          image: khalifarsm/pandora:admin
           name: admin
           ports:
             - containerPort: 8104

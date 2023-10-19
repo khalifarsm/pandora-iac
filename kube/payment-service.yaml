@@ -6,15 +6,15 @@ metadata:
     kompose.version: 1.30.0 (9d8dcb518)
   creationTimestamp: null
   labels:
-    io.kompose.service: admin
-  name: admin
+    io.kompose.service: payment
+  name: payment
   namespace: pandora
 spec:
   ports:
-    - name: "8104"
-      port: 8104
-      targetPort: 8104
+    - name: "8105"
+      port: 8105
+      targetPort: 8105
   selector:
-    io.kompose.service: admin
+    io.kompose.service: payment
 status:
   loadBalancer: {}

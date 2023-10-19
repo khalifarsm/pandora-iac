@@ -14,7 +14,8 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: redis
-  strategy: {}
+  strategy:
+    type: Recreate
   template:
     metadata:
       annotations:
@@ -36,5 +37,19 @@ spec:
               hostPort: 6379
               protocol: TCP
           resources: {}
+          volumeMounts:
+            - mountPath: /usr/local/etc/redis/redis.conf
+              name: redis-claim0
+              readOnly: true
+            - mountPath: /data
+              name: redis-data
       restartPolicy: Always
+      volumes:
+        - name: redis-claim0
+          persistentVolumeClaim:
+            claimName: redis-claim0
+            readOnly: true
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-data
 status: {}

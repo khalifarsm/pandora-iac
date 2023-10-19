@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-postgres-to-signal-pandora-admin
+spec:
+  podSelector:
+    matchLabels:
+      io.kompose.service: postgresql
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          database: postgres

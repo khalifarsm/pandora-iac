@@ -1,0 +1,48 @@
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Controls: 62 (Failed: 23, Passed: 31, Action Required: 8)
+Failed Resources by Severity: Critical — 0, High — 1, Medium — 38, Low — 20
+
+┌──────────┬─────────────────────────────────────────────┬──────────────────┬───────────────┬─────────────────────┐
+│ [1;93mSEVERITY[0m │ [1;93m               CONTROL NAME                [0m │ [1;93mFAILED RESOURCES[0m │ [1;93mALL RESOURCES[0m │ [1;93m% COMPLIANCE-SCORE [0m │
+├──────────┼─────────────────────────────────────────────┼──────────────────┼───────────────┼─────────────────────┤
+│ Critical │ Disable anonymous access to Kubelet service │        0         │       0       │ Action Required **  │
+│ Critical │ Enforce Kubelet client TLS authentication   │        0         │       0       │ Action Required **  │
+│ High     │ Forbidden Container Registries              │        0         │       5       │  Action Required *  │
+│ High     │ List Kubernetes secrets                     │        1         │      51       │         98%         │
+│ High     │ RBAC enabled                                │        0         │       0       │ Action Required *** │
+│ Medium   │ Exec into container                         │        1         │      51       │         98%         │
+│ Medium   │ Data Destruction                            │        1         │      51       │         98%         │
+│ Medium   │ Non-root containers                         │        5         │       5       │         0%          │
+│ Medium   │ Allow privilege escalation                  │        2         │       5       │         60%         │
+│ Medium   │ Ingress and Egress blocked                  │        5         │       5       │         0%          │
+│ Medium   │ Delete Kubernetes events                    │        1         │      51       │         98%         │
+│ Medium   │ Automatic mapping of service account        │        1         │       6       │         83%         │
+│ Medium   │ Cluster-admin binding                       │        1         │      51       │         98%         │
+│ Medium   │ CoreDNS poisoning                           │        1         │      51       │         98%         │
+│ Medium   │ Container hostPort                          │        5         │       5       │         0%          │
+│ Medium   │ Access container service account            │        1         │      36       │         97%         │
+│ Medium   │ Cluster internal networking                 │        1         │       1       │         0%          │
+│ Medium   │ Linux hardening                             │        5         │       5       │         0%          │
+│ Medium   │ Portforwarding privileges                   │        1         │      51       │         98%         │
+│ Medium   │ No impersonation                            │        1         │      51       │         98%         │
+│ Medium   │ Secret/ETCD encryption enabled              │        0         │       0       │ Action Required *** │
+│ Medium   │ Audit logs enabled                          │        0         │       0       │ Action Required *** │
+│ Medium   │ Images from allowed registry                │        0         │       5       │  Action Required *  │
+│ Medium   │ CVE-2022-0492-cgroups-container-escape      │        5         │       5       │         0%          │
+│ Medium   │ Anonymous access enabled                    │        1         │      51       │         98%         │
+│ Low      │ Immutable container filesystem              │        5         │       5       │         0%          │
+│ Low      │ Network mapping                             │        1         │       1       │         0%          │
+│ Low      │ PSP enabled                                 │        0         │       0       │ Action Required *** │
+│ Low      │ Image pull policy on latest tag             │        4         │       5       │         20%         │
+│ Low      │ Label usage for resources                   │        5         │       5       │         0%          │
+│ Low      │ K8s common labels usage                     │        5         │       5       │         0%          │
+├──────────┼─────────────────────────────────────────────┼──────────────────┼───────────────┼─────────────────────┤
+│          │              RESOURCE SUMMARY               │        9         │      112      │       68.43%        │
+└──────────┴─────────────────────────────────────────────┴──────────────────┴───────────────┴─────────────────────┘
+FRAMEWORKS: AllControls (compliance: 67.95), NSA (compliance: 51.64), MITRE (compliance: 76.36)
+
+* Control configurations are empty
+** This control requires the host-scanner capability. To activate the host scanner capability, proceed with the installation of the kubescape operator chart found here: https://github.com/kubescape/helm-charts/tree/main/charts/kubescape-cloud-operator
+*** failed to get cloud provider, cluster: docker-desktop

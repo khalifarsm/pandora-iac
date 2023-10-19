@@ -7,8 +7,9 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: admin
+    database: postgres
   name: admin
-  namespace: default
+  namespace: pandora
 spec:
   replicas: 1
   selector:
@@ -27,11 +28,37 @@ spec:
     spec:
       containers:
         - image: khalifarsm/pandora:admin
+          env:
+            - name: PANDORA_ENV
+              value: do
           name: admin
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
           ports:
             - containerPort: 8104
               hostPort: 8104
               protocol: TCP
-          resources: {}
+          livenessProbe:
+            httpGet:
+              path: /login
+              port: 8104
+              httpHeaders:
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /login
+              port: 8104
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "8Gi"
+              cpu: "50000m"
       restartPolicy: Always
 status: {}

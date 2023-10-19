@@ -1,0 +1,1 @@
+kubectl create secret generic tunnel-credentials --from-file=credentials.json=pandora.json -n pandora

@@ -8,7 +8,7 @@ metadata:
   labels:
     io.kompose.service: wipe
   name: wipe
-  namespace: default
+  namespace: pandora
 spec:
   ports:
     - name: "8103"

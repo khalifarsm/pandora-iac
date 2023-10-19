@@ -8,7 +8,7 @@ metadata:
   labels:
     io.kompose.service: signal
   name: signal
-  namespace: default
+  namespace: pandora
 spec:
   ports:
     - name: "8100"

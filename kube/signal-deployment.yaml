@@ -7,8 +7,9 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: signal
+    database: postgres
   name: signal
-  namespace: default
+  namespace: pandora
 spec:
   replicas: 1
   selector:
@@ -25,13 +26,40 @@ spec:
         io.kompose.network/swarm-default: "true"
         io.kompose.service: signal
     spec:
+#      initContainers:
+#        - name: wait-for-web-server
+#          image: busybox
+#          command: ["sh", "-c", "until curl -s http://pandora:8102/ -o /dev/null; do echo 'Waiting for web server...' && sleep 1; done"]
       containers:
         - image: khalifarsm/pandora:signal
+          env:
+            - name: PANDORA_ENV
+              value: do.yml
           name: signal
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
           ports:
             - containerPort: 8080
               hostPort: 8100
               protocol: TCP
-          resources: {}
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "64Gi"
+              cpu: "500000m"
       restartPolicy: Always
 status: {}

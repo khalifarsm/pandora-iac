@@ -8,7 +8,7 @@ metadata:
   labels:
     io.kompose.service: redis
   name: redis
-  namespace: default
+  namespace: pandora
 spec:
   replicas: 1
   selector:
@@ -30,10 +30,32 @@ spec:
             - redis-server
           image: redis:7.0.12
           name: redis
+          securityContext:
+            allowPrivilegeEscalation: false
+          livenessProbe:
+            exec:
+              command:
+              - redis-cli
+              - ping
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+              - redis-cli
+              - ping
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
           ports:
             - containerPort: 6379
               hostPort: 6379
               protocol: TCP
-          resources: {}
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "64Gi"
+              cpu: "500000m"
       restartPolicy: Always
 status: {}

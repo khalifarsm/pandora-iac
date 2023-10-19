@@ -6,15 +6,15 @@ metadata:
     kompose.version: 1.30.0 (9d8dcb518)
   creationTimestamp: null
   labels:
-    io.kompose.service: admin
-  name: admin
+    io.kompose.service: web
+  name: web
   namespace: pandora
 spec:
   ports:
-    - name: "8104"
-      port: 8104
-      targetPort: 8104
+    - name: "8101"
+      port: 8101
+      targetPort: 8101
   selector:
-    io.kompose.service: admin
+    io.kompose.service: web
 status:
   loadBalancer: {}

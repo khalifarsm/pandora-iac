@@ -7,8 +7,9 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: pandora
+    database: postgres
   name: pandora
-  namespace: default
+  namespace: pandora
 spec:
   replicas: 1
   selector:
@@ -27,16 +28,34 @@ spec:
     spec:
       containers:
         - env:
-            - name: signal.server.url
-              value: https://chat.muleinsights.com
-            - name: spring.datasource.url
-              value: jdbc:postgresql://postgresql:5432/signal-accounts
+            - name: PANDORA_ENV
+              value: do
           image: khalifarsm/pandora:api
           name: pandora
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
           ports:
             - containerPort: 8102
               hostPort: 8102
               protocol: TCP
-          resources: {}
+          livenessProbe:
+            tcpSocket:
+              port: 8102
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 8102
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "8Gi"
+              cpu: "50000m"
       restartPolicy: Always
 status: {}

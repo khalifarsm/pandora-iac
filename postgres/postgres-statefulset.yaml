@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  serviceName: postgres
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      initContainers:
+        - name: postgres-init
+          image: postgres:13-alpine
+          command:
+          - bash
+          - "-c"
+          - |
+            set -ex
+            [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+            ordinal=${BASH_REMATCH[1]}
+            if [[ $ordinal -eq 0 ]]; then
+              printf "I am the primary"
+            else
+              printf "I am a read-only replica"
+            fi
+      containers:
+        - name: postgres
+          image: postgres:13-alpine
+          env:
+            - name: POSTGRES_USER
+              value: pandora
+            - name: POSTGRES_PASSWORD
+              value: gkj1HU6BcSaSxRx
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+          ports:
+          - name: postgres
+            containerPort: 5432
+          livenessProbe:
+            exec:
+              command:
+                - "sh"
+                - "-c"
+                - "pg_isready --host $POD_IP"
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - "sh"
+                - "-c"
+                - "pg_isready --host $POD_IP"
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 1
+          volumeMounts:
+          - name: data
+            mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "64Gi"
+              cpu: "500000m"
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 20Gi

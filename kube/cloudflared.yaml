@@ -2,6 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: pandora
   name: cloudflared
 spec:
   selector:
@@ -68,6 +69,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  namespace: pandora
   name: cloudflared
 data:
   config.yaml: |
@@ -85,5 +87,11 @@ data:
       service: http://wipe:8103
     - hostname: signal.pandorachat.io
       service: http://signal:8080
+    - hostname: www.pandorachat.io
+      service: http://web:8101
+    - hostname: pandorachat.io
+      service: http://web:8101
+    - hostname: payment.pandorachat.io
+      service: http://payment:8105
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     - service: http_status:404

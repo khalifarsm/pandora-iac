@@ -1,0 +1,5 @@
+Created tunnel pandorachat with id f186f74b-1450-4fcf-8aca-ffd357e8812c
+
+f186f74b-1450-4fcf-8aca-ffd357e8812c.cfargotunnel.com
+
+kubectl create secret generic tunnel-credentials --from-file=credentials.json=pandora.json

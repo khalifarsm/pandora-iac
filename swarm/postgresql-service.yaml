@@ -6,15 +6,15 @@ metadata:
     kompose.version: 1.30.0 (9d8dcb518)
   creationTimestamp: null
   labels:
-    io.kompose.service: admin
-  name: admin
-  namespace: pandora
+    io.kompose.service: postgresql
+  name: postgresql
+  namespace: default
 spec:
   ports:
-    - name: "8104"
-      port: 8104
-      targetPort: 8104
+    - name: "5432"
+      port: 5432
+      targetPort: 5432
   selector:
-    io.kompose.service: admin
+    io.kompose.service: postgresql
 status:
   loadBalancer: {}

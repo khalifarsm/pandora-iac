@@ -1,0 +1,1 @@
+kubescape scan --verbose --exclude-namespaces kube-system,kube-public,kube-node-lease,default --format html --output results.html
