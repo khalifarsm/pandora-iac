@@ -34,7 +34,7 @@ spec:
         - image: khalifarsm/pandora:signal
           env:
             - name: PANDORA_ENV
-              value: do.yml
+              value: azure.yml
           name: signal
           securityContext:
             allowPrivilegeEscalation: false

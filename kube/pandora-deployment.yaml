@@ -29,7 +29,7 @@ spec:
       containers:
         - env:
             - name: PANDORA_ENV
-              value: do
+              value: azure
           image: khalifarsm/pandora:api
           name: pandora
           securityContext:

@@ -30,7 +30,7 @@ spec:
         - image: khalifarsm/pandora:admin
           env:
             - name: PANDORA_ENV
-              value: do
+              value: azure
           name: admin
           securityContext:
             allowPrivilegeEscalation: false
