@@ -31,7 +31,7 @@ spec:
 #          image: busybox
 #          command: ["sh", "-c", "until curl -s http://pandora:8102/ -o /dev/null; do echo 'Waiting for web server...' && sleep 1; done"]
       containers:
-        - image: khalifarsm/pandora:signal
+        - image: acrprodpandora.azurecr.io/acrprodpandora/pandora:signal
           env:
             - name: PANDORA_ENV
               value: azure.yml

@@ -27,7 +27,7 @@ spec:
         io.kompose.service: admin
     spec:
       containers:
-        - image: khalifarsm/pandora:admin
+        - image: acrprodpandora.azurecr.io/acrprodpandora/pandora:admin
           env:
             - name: PANDORA_ENV
               value: azure

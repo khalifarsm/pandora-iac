@@ -26,7 +26,7 @@ spec:
         io.kompose.service: web
     spec:
       containers:
-        - image: khalifarsm/pandora:web
+        - image: acrprodpandora.azurecr.io/acrprodpandora/pandora:web
           name: web
           securityContext:
             allowPrivilegeEscalation: false

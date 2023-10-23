@@ -26,7 +26,7 @@ spec:
         io.kompose.service: wipe
     spec:
       containers:
-        - image: khalifarsm/pandora:wipe
+        - image: acrprodpandora.azurecr.io/acrprodpandora/pandora:wipe
           name: wipe
           securityContext:
             allowPrivilegeEscalation: false

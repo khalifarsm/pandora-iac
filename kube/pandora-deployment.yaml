@@ -30,7 +30,7 @@ spec:
         - env:
             - name: PANDORA_ENV
               value: azure
-          image: khalifarsm/pandora:api
+          image: acrprodpandora.azurecr.io/acrprodpandora/pandora:api
           name: pandora
           securityContext:
             allowPrivilegeEscalation: false
