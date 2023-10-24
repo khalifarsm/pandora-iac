@@ -32,6 +32,9 @@ spec:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
             readOnlyRootFilesystem: false
+          env:
+          - name: BACKEND_URL
+            value: https://admin.pandorachat.io
           ports:
             - containerPort: 8105
               hostPort: 8105
