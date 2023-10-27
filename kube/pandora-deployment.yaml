@@ -30,7 +30,8 @@ spec:
         - env:
             - name: PANDORA_ENV
               value: azure
-          image: acrprodpandora.azurecr.io/acrprodpandora/pandora:api
+          image: acrprodpandora.azurecr.io/acrprodpandora/api:latest
+          imagePullPolicy: Always
           name: pandora
           securityContext:
             allowPrivilegeEscalation: false

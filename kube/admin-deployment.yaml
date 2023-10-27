@@ -27,7 +27,8 @@ spec:
         io.kompose.service: admin
     spec:
       containers:
-        - image: acrprodpandora.azurecr.io/acrprodpandora/pandora:admin
+        - image: acrprodpandora.azurecr.io/acrprodpandora/admin:latest
+          imagePullPolicy: Always
           env:
             - name: PANDORA_ENV
               value: azure

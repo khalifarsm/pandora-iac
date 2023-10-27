@@ -31,11 +31,12 @@ spec:
 #          image: busybox
 #          command: ["sh", "-c", "until curl -s http://pandora:8102/ -o /dev/null; do echo 'Waiting for web server...' && sleep 1; done"]
       containers:
-        - image: acrprodpandora.azurecr.io/acrprodpandora/pandora:signal
+        - image: acrprodpandora.azurecr.io/acrprodpandora/signal:latest
           env:
             - name: PANDORA_ENV
               value: azure.yml
           name: signal
+          imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
