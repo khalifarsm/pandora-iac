@@ -2,23 +2,19 @@ version: "3"
 services:
 
 # PostgreSQL aws is used instead
-  postgresql:
-    image: postgres:13-alpine
-    restart: unless-stopped
-    volumes:
-      - ./postgresql/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
-      - postgresql-data29:/var/lib/postgresql
-    environment:
-      - 'PANDORA_ENV=kube'
-      - 'POSTGRES_USER=postgres'
-      - 'POSTGRES_PASSWORD=123456789'
-      - 'POSTGRES_DB=postgres'
-      - 'POSTGRES_MAX_CONNECTIONS=1000'
-    ports:
-      - "5432:5432"
+#  postgresql:
+#    image: postgres:13-alpine
+#    restart: unless-stopped
+#    volumes:
+#      - ./postgresql/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+#      - postgresql-data29:/var/lib/postgresql
+#    env_file: 
+#      - postgresql/postgresql.env
+#    ports:
+#      - "5432:5432"
 
   signal:
-    image: khalifarsm/pandora:signal
+    image: acrprodpandora.azurecr.io/acrprodpandora/signal:latest
     deploy:
        replicas: 1
     restart: unless-stopped
@@ -28,24 +24,40 @@ services:
       - postgresql
       - redis
     environment:
-      - 'PANDORA_ENV=kube.yml'
+      - 'PANDORA_ENV=azure.yml'
+
+  signaling:
+    image: khalifarsm/pandora:signaling
+    deploy:
+       replicas: 1
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+
+  signaling2:
+    image: acrprodpandora.azurecr.io/acrprodpandora/signaling:latest
+    deploy:
+       replicas: 1
+    restart: unless-stopped
+    ports:
+      - "5001:5000"
 
 
   pandora:
-    image: khalifarsm/pandora:api
+    image: acrprodpandora.azurecr.io/acrprodpandora/api:latest
     deploy:
        replicas: 1
     restart: unless-stopped
     ports:
       - "8102:8102"
     environment:
-      - 'PANDORA_ENV=kube'
+      - 'PANDORA_ENV=azure'
     depends_on:
       - postgresql
       - signal
 
   wipe:
-    image: khalifarsm/pandora:wipe
+    image: acrprodpandora.azurecr.io/acrprodpandora/wipe:latest
     deploy:
        replicas: 1
     restart: unless-stopped
@@ -55,7 +67,7 @@ services:
       - pandora
 
   payment:
-    image: khalifarsm/pandora:payment
+    image: acrprodpandora.azurecr.io/acrprodpandora/payment:latest
     deploy:
        replicas: 1
     restart: unless-stopped
@@ -65,16 +77,16 @@ services:
       - admin
 
 
-  web:
-    image: khalifarsm/pandora:web
-    deploy:
-       replicas: 1
-    restart: unless-stopped
-    ports:
-      - "8101:8101"
+#  web:
+#    image: acrprodpandora.azurecr.io/acrprodpandora/web:latest
+#    deploy:
+#       replicas: 1
+#    restart: unless-stopped
+#    ports:
+#      - "8101:8101"
 
   admin:
-    image: khalifarsm/pandora:admin
+    image: acrprodpandora.azurecr.io/acrprodpandora/admin:latest
     deploy:
        replicas: 1
     restart: unless-stopped
@@ -84,7 +96,7 @@ services:
       - postgresql
       - pandora
     environment:
-      - 'PANDORA_ENV=kube'
+      - 'PANDORA_ENV=azure'
 
 # Redis
   redis:
@@ -94,10 +106,9 @@ services:
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
       - redis-data:/data
-    ports:
-      - "6379:6379"
-
+    env_file: 
+      - redis/redis.env
 
 volumes:
-  postgresql-data29:
+#  postgresql-data29:
   redis-data:

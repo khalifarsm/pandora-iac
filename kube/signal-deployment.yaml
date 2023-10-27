@@ -43,7 +43,7 @@ spec:
             readOnlyRootFilesystem: false
           ports:
             - containerPort: 8080
-              hostPort: 8100
+              hostPort: 8080
               protocol: TCP
           livenessProbe:
             tcpSocket:
