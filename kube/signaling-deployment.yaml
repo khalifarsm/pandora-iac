@@ -28,6 +28,9 @@ spec:
       containers:
         - image: acrprodpandora.azurecr.io/acrprodpandora/signaling:latest
           name: signaling
+          env:
+            - name: PANDORA_ENV
+              value: azure
           imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false
