@@ -81,6 +81,8 @@ data:
     # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
     - hostname: admin.pandorachat.io
       service: http://admin:8104
+    - hostname: web.pandorachat.io
+      service: http://admin:8104
     - hostname: api.pandorachat.io
       service: http://pandora:8102
     - hostname: wipe.pandorachat.io
@@ -91,5 +93,9 @@ data:
       service: http://payment:8105
     - hostname: signaling.pandorachat.io
       service: http://signaling:5000
+    - hostname: pandorachat.io
+      service: http://web:8101
+    - hostname: www.pandorachat.io
+      service: http://web:8101
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     - service: http_status:404
