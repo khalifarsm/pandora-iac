@@ -81,8 +81,6 @@ data:
     # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
     - hostname: admin.pandorachat.io
       service: http://admin:8104
-    - hostname: web.pandorachat.io
-      service: http://admin:8104
     - hostname: api.pandorachat.io
       service: http://pandora:8102
     - hostname: wipe.pandorachat.io
