@@ -94,6 +94,6 @@ data:
     - hostname: pandorachat.io
       service: http://web:8101
     - hostname: www.pandorachat.io
-      service: http://web:8101
+      service: http://web2:3000
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     - service: http_status:404
