@@ -26,15 +26,19 @@ spec:
         io.kompose.network/swarm-default: "true"
         io.kompose.service: signal
     spec:
-#      initContainers:
-#        - name: wait-for-web-server
-#          image: busybox
-#          command: ["sh", "-c", "until curl -s http://pandora:8102/ -o /dev/null; do echo 'Waiting for web server...' && sleep 1; done"]
+      volumes:
+      - name: secret-signal
+        secret:
+          secretName: signal
       containers:
-        - image: acrprodpandora.azurecr.io/acrprodpandora/signal:latest
+        - image: tempacrpandora.azurecr.io/tempacrpandora/signal:latest
+          volumeMounts:
+          - name: secret-signal
+            readOnly: true
+            mountPath: "/home/pandora/config"
           env:
             - name: PANDORA_ENV
-              value: azure.yml
+              value: ./config/azure.yml
           name: signal
           imagePullPolicy: Always
           securityContext:

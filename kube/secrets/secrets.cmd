@@ -1,0 +1,5 @@
+kubectl create secret generic admin --from-file=./admin/application.properties --from-file=./admin/application-azure.properties --from-file=./admin/application-do.properties --from-file=./admin/application-kube.properties -n pandora
+kubectl create secret generic api --from-file=./admin/application.properties --from-file=./api/application-azure.properties --from-file=./api/application-azuretest.properties --from-file=./api/application-do.properties --from-file=./api/application-kube.properties -n pandora
+kubectl create secret generic signaling --from-file=./signaling/application.properties --from-file=./signaling/application-azure.properties -n pandora
+kubectl create secret generic signal --from-file=./signal/config.yml --from-file=./signal/secret.yml -n pandora
+kubectl create secret docker-registry regcred --docker-server=tempacrpandora.azurecr.io --docker-username=tempacrpandora --docker-password=XLXeeTgcDLkGdZzF5K5er+CXDWdxBbH5bV3Q6ccJnP+ACRC59X55

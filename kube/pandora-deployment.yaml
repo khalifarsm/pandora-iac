@@ -26,11 +26,19 @@ spec:
         io.kompose.network/swarm-default: "true"
         io.kompose.service: pandora
     spec:
+      volumes:
+      - name: secret-api
+        secret:
+          secretName: api
       containers:
         - env:
             - name: PANDORA_ENV
               value: azure
-          image: acrprodpandora.azurecr.io/acrprodpandora/api:latest
+          image: tempacrpandora.azurecr.io/tempacrpandora/api:latest
+          volumeMounts:
+          - name: secret-api
+            readOnly: true
+            mountPath: "/home/spring/config"
           imagePullPolicy: Always
           name: pandora
           securityContext:

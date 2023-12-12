@@ -25,8 +25,18 @@ spec:
         io.kompose.network/swarm-default: "true"
         io.kompose.service: signaling
     spec:
+      volumes:
+      - name: secret-signaling
+        secret:
+          secretName: signaling
+      imagePullSecrets:
+        - name: regcred
       containers:
-        - image: acrprodpandora.azurecr.io/acrprodpandora/signaling:latest
+        - image: tempacrpandora.azurecr.io/tempacrpandora/signaling:latest
+          volumeMounts:
+          - name: secret-signaling
+            readOnly: true
+            mountPath: "/home/spring/config"
           name: signaling
           env:
             - name: PANDORA_ENV

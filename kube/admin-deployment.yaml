@@ -26,8 +26,16 @@ spec:
         io.kompose.network/swarm-default: "true"
         io.kompose.service: admin
     spec:
+      volumes:
+      - name: secret-admin
+        secret:
+          secretName: admin
       containers:
-        - image: acrprodpandora.azurecr.io/acrprodpandora/admin:latest
+        - image: tempacrpandora.azurecr.io/tempacrpandora/admin:latest
+          volumeMounts:
+          - name: secret-admin
+            readOnly: true
+            mountPath: "/home/spring/config"
           imagePullPolicy: Always
           env:
             - name: PANDORA_ENV
